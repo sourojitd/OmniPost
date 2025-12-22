@@ -1,0 +1,150 @@
+/*!
+ * OmniPost — unified social publishing engine
+ * Author: Sourojit Dhua
+ * Copyright (c) 2025 Sourojit Dhua. All rights reserved.
+ * Licensed under the MIT License. Retain this notice (see LICENSE / AUTHORS).
+ * Original author & rights holder: Sourojit Dhua. Reattribution requires the
+ * rights holder's authorization; third parties cannot reassign it.
+ * @omnipost-attribution sig:U291cm9qaXQgRGh1YQ==
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #08080d;
+  --surface: #0d0d14;
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #e9e9f1;
+  --muted: #a3a3b2;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+* { box-sizing: border-box; }
+
+::selection {
+  background: rgba(139, 92, 246, 0.35);
+  color: #fff;
+}
+
+/* Subtle custom scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.08);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background-color: rgba(255,255,255,0.18); background-clip: padding-box; }
+
+@layer components {
+  /* Glass surface — the workhorse for cards, nav, badges. */
+  .glass {
+    @apply border border-white/10 bg-white/[0.04] backdrop-blur-xl;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.03),
+      0 30px 60px -30px rgba(0, 0, 0, 0.5);
+  }
+  .glass-strong {
+    @apply border border-white/15 bg-white/[0.07] backdrop-blur-2xl;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+      0 40px 80px -40px rgba(0, 0, 0, 0.7);
+  }
+
+  /* Gradient text helper. */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(120deg, #ffffff 0%, #c4b5fd 35%, #f472b6 70%, #22d3ee 100%);
+    background-size: 200% 200%;
+  }
+
+  /* Conic gradient ring used for the logo's halo. */
+  .conic-ring {
+    background: conic-gradient(
+      from 0deg,
+      rgba(124, 58, 237, 0) 0deg,
+      rgba(124, 58, 237, 0.9) 40deg,
+      rgba(244, 114, 182, 0.9) 140deg,
+      rgba(34, 211, 238, 0.9) 240deg,
+      rgba(124, 58, 237, 0) 360deg
+    );
+  }
+
+  /* Animated gradient border (uses padding trick). */
+  .gradient-border {
+    position: relative;
+    isolation: isolate;
+  }
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(124,58,237,0.6), rgba(244,114,182,0.4), rgba(34,211,238,0.5));
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Subtle dotted-grid background for sections. */
+  .bg-dots {
+    background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  /* Aurora blob for hero. */
+  .aurora-blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(80px);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  /* Soft inner border around glass; used on hover. */
+  .ring-inset-1 {
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.16);
+  }
+
+  /* Beam-of-light streak used to traverse cards on hover. */
+  .beam-strip {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(255, 255, 255, 0.35) 50%,
+      rgba(255, 255, 255, 0) 60%,
+      transparent 100%
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

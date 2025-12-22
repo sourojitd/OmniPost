@@ -1,0 +1,132 @@
+<!--
+  OmniPost — unified social publishing engine
+  Author: Sourojit Dhua
+  Copyright (c) 2025 Sourojit Dhua. All rights reserved.
+  Licensed under the MIT License. Retain this notice (see LICENSE / AUTHORS).
+  Original author & rights holder: Sourojit Dhua. Reattribution requires the
+  rights holder's authorization; third parties cannot reassign it.
+  @omnipost-attribution sig:U291cm9qaXQgRGh1YQ==
+-->
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" width="1200" height="360" role="img" aria-label="Fan-out architecture diagram">
+  <title>One upload → four platforms</title>
+  <metadata id="omnipost-attribution">
+    OmniPost. Author and copyright holder: Sourojit Dhua. Copyright (c) 2025 Sourojit Dhua.
+    Licensed MIT — attribution must be retained. sig:U291cm9qaXQgRGh1YQ==
+  </metadata>
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0a12"/>
+      <stop offset="100%" stop-color="#11111b"/>
+    </linearGradient>
+    <linearGradient id="wire" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="rgba(167,139,250,0)"/>
+      <stop offset="50%"  stop-color="rgba(167,139,250,0.7)"/>
+      <stop offset="100%" stop-color="rgba(34,211,238,0.85)"/>
+    </linearGradient>
+    <radialGradient id="src">
+      <stop offset="0%" stop-color="#fff"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </radialGradient>
+    <filter id="g2" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.6"/>
+    </filter>
+    <pattern id="grid2" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="360" fill="url(#bg2)"/>
+  <rect width="1200" height="360" fill="url(#grid2)"/>
+
+  <!-- Source node -->
+  <g transform="translate(170,180)">
+    <circle r="58" fill="rgba(124,58,237,0.12)"/>
+    <circle r="42" fill="url(#src)"/>
+    <text y="86" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, monospace" font-size="13" fill="#cbd5e1">POST /v1/posts</text>
+    <text y="-66" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="13" fill="#a3a3b2">your upload</text>
+  </g>
+
+  <!-- Worker node in the middle (just visual) -->
+  <g transform="translate(560,180)">
+    <rect x="-90" y="-46" width="180" height="92" rx="14" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)"/>
+    <text y="-12" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="15" fill="#fff">BullMQ worker</text>
+    <text y="10"  text-anchor="middle" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" fill="#a3a3b2">ffprobe · smart-pad</text>
+    <text y="28"  text-anchor="middle" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" fill="#a3a3b2">1 job per target</text>
+  </g>
+
+  <!-- Platform endpoints -->
+  <g font-family="ui-sans-serif, system-ui" font-size="14">
+    <g transform="translate(1010,72)">
+      <circle r="30" fill="rgba(255,255,255,0.04)" stroke="rgba(255,59,59,0.45)"/>
+      <text text-anchor="middle" y="6" font-size="22" fill="#ff8a8a">▶</text>
+      <text x="44" y="6" fill="#cbd5e1">YouTube</text>
+    </g>
+    <g transform="translate(1010,144)">
+      <circle r="30" fill="rgba(255,255,255,0.04)" stroke="rgba(225,48,108,0.45)"/>
+      <text text-anchor="middle" y="6" font-size="20" fill="#f472b6">◎</text>
+      <text x="44" y="6" fill="#cbd5e1">Instagram</text>
+    </g>
+    <g transform="translate(1010,216)">
+      <circle r="30" fill="rgba(255,255,255,0.04)" stroke="rgba(24,119,242,0.45)"/>
+      <text text-anchor="middle" y="6" font-size="22" fill="#60a5fa">f</text>
+      <text x="44" y="6" fill="#cbd5e1">Facebook</text>
+    </g>
+    <g transform="translate(1010,288)">
+      <circle r="30" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.4)"/>
+      <text text-anchor="middle" y="6" font-size="20" fill="#fff">𝕏</text>
+      <text x="44" y="6" fill="#cbd5e1">X</text>
+    </g>
+  </g>
+
+  <!-- Source → worker wire -->
+  <path d="M 228 180 C 360 180, 400 180, 470 180" fill="none" stroke="url(#wire)" stroke-width="2" stroke-dasharray="6 8">
+    <animate attributeName="stroke-dashoffset" from="0" to="-140" dur="3s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- Worker → platform wires + animated packets -->
+  <g>
+    <!-- YouTube -->
+    <path id="p1" d="M 650 170 C 800 170, 880 90, 980 72" fill="none" stroke="url(#wire)" stroke-width="1.6" stroke-dasharray="5 7" opacity="0.7"/>
+    <circle r="5" fill="#ff3b3b" filter="url(#g2)">
+      <animateMotion dur="3s" repeatCount="indefinite" rotate="auto"><mpath href="#p1"/></animateMotion>
+    </circle>
+    <circle r="2.4" fill="#ffffff">
+      <animateMotion dur="3s" repeatCount="indefinite"><mpath href="#p1"/></animateMotion>
+    </circle>
+
+    <!-- Instagram -->
+    <path id="p2" d="M 650 178 C 800 178, 880 156, 980 144" fill="none" stroke="url(#wire)" stroke-width="1.6" stroke-dasharray="5 7" opacity="0.7"/>
+    <circle r="5" fill="#e1306c" filter="url(#g2)">
+      <animateMotion dur="3.5s" begin="-0.6s" repeatCount="indefinite"><mpath href="#p2"/></animateMotion>
+    </circle>
+    <circle r="2.4" fill="#ffffff">
+      <animateMotion dur="3.5s" begin="-0.6s" repeatCount="indefinite"><mpath href="#p2"/></animateMotion>
+    </circle>
+
+    <!-- Facebook -->
+    <path id="p3" d="M 650 186 C 800 186, 880 210, 980 216" fill="none" stroke="url(#wire)" stroke-width="1.6" stroke-dasharray="5 7" opacity="0.7"/>
+    <circle r="5" fill="#1877f2" filter="url(#g2)">
+      <animateMotion dur="4s" begin="-1.2s" repeatCount="indefinite"><mpath href="#p3"/></animateMotion>
+    </circle>
+    <circle r="2.4" fill="#ffffff">
+      <animateMotion dur="4s" begin="-1.2s" repeatCount="indefinite"><mpath href="#p3"/></animateMotion>
+    </circle>
+
+    <!-- X -->
+    <path id="p4" d="M 650 194 C 800 194, 880 270, 980 288" fill="none" stroke="url(#wire)" stroke-width="1.6" stroke-dasharray="5 7" opacity="0.7"/>
+    <circle r="5" fill="#ffffff" filter="url(#g2)">
+      <animateMotion dur="4.5s" begin="-1.8s" repeatCount="indefinite"><mpath href="#p4"/></animateMotion>
+    </circle>
+    <circle r="2.4" fill="#a78bfa">
+      <animateMotion dur="4.5s" begin="-1.8s" repeatCount="indefinite"><mpath href="#p4"/></animateMotion>
+    </circle>
+  </g>
+
+  <!-- Caption row -->
+  <g font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" fill="#a3a3b2">
+    <text x="170" y="332" text-anchor="middle">presigned PUT</text>
+    <text x="560" y="332" text-anchor="middle">probe → pad → publish (one job per target)</text>
+    <text x="1010" y="332" text-anchor="middle">native upload protocol</text>
+  </g>
+</svg>

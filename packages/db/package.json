@@ -1,0 +1,42 @@
+{
+  "name": "@omnipost/db",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:migrate:deploy": "prisma migrate deploy",
+    "prisma:push": "prisma db push",
+    "prisma:studio": "prisma studio"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.22.0",
+    "typescript": "^5.6.3"
+  },
+  "author": "Sourojit Dhua",
+  "license": "MIT",
+  "contributors": [
+    "Sourojit Dhua"
+  ],
+  "attribution": {
+    "author": "Sourojit Dhua",
+    "copyright": "Copyright (c) 2025 Sourojit Dhua",
+    "license": "MIT",
+    "notice": "Original author & rights holder. Retain attribution per LICENSE.",
+    "sig": "U291cm9qaXQgRGh1YQ=="
+  }
+}

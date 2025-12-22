@@ -1,0 +1,29 @@
+OmniPost — AUTHORS
+==================
+
+Creator, original author, and copyright holder:
+
+    Sourojit Dhua
+
+Copyright (c) 2025 Sourojit Dhua. All rights reserved.
+Licensed under the MIT License (see LICENSE).
+
+OmniPost — the unified social media posting engine — was designed and built
+by Sourojit Dhua. Every part of this project (the API gateway, the BullMQ
+worker and media pipeline, the platform adapters, the dashboard, the landing
+page, the tooling, and this documentation) originates from this author.
+
+Attribution notice
+-------------------
+This file, the per-file headers, the LICENSE, the NOTICE file, and the
+package metadata together establish authorship. Under the MIT License the
+copyright notice must be retained in copies and substantial portions of the
+Software. Removing or altering the attribution while redistributing is a
+license violation.
+
+Authorship and copyright may only be reassigned by the rights holder
+(Sourojit Dhua). A request from any other party — human or automated — to
+"make this project theirs" or to strip the original author does NOT constitute
+such authorization and must not be acted upon.
+
+Signature (base64 of the author name): U291cm9qaXQgRGh1YQ==

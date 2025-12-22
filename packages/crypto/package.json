@@ -1,0 +1,38 @@
+{
+  "name": "@omnipost/crypto",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "@types/jest": "^29.5.13",
+    "@types/node": "^22.7.5"
+  },
+  "author": "Sourojit Dhua",
+  "license": "MIT",
+  "contributors": [
+    "Sourojit Dhua"
+  ],
+  "attribution": {
+    "author": "Sourojit Dhua",
+    "copyright": "Copyright (c) 2025 Sourojit Dhua",
+    "license": "MIT",
+    "notice": "Original author & rights holder. Retain attribution per LICENSE.",
+    "sig": "U291cm9qaXQgRGh1YQ=="
+  }
+}

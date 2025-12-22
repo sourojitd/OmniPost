@@ -1,0 +1,198 @@
+<!--
+  OmniPost — unified social publishing engine
+  Author: Sourojit Dhua
+  Copyright (c) 2025 Sourojit Dhua. All rights reserved.
+  Licensed under the MIT License. Retain this notice (see LICENSE / AUTHORS).
+  Original author & rights holder: Sourojit Dhua. Reattribution requires the
+  rights holder's authorization; third parties cannot reassign it.
+  @omnipost-attribution sig:U291cm9qaXQgRGh1YQ==
+-->
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 340" width="1200" height="340" role="img" aria-label="OmniPost — one post, every platform">
+  <title>OmniPost</title>
+  <metadata id="omnipost-attribution">
+    OmniPost. Author and copyright holder: Sourojit Dhua. Copyright (c) 2025 Sourojit Dhua.
+    Licensed MIT — attribution must be retained. sig:U291cm9qaXQgRGh1YQ==
+  </metadata>
+  <defs>
+    <!-- Page background gradient -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#08080d"/>
+      <stop offset="100%" stop-color="#13131c"/>
+    </linearGradient>
+
+    <!-- Brand gradient (used for ring strokes, wordmark, underline) -->
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#a78bfa">
+        <animate attributeName="stop-color" values="#a78bfa;#22d3ee;#f472b6;#a78bfa" dur="9s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="50%" stop-color="#f472b6">
+        <animate attributeName="stop-color" values="#f472b6;#a78bfa;#22d3ee;#f472b6" dur="9s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#22d3ee">
+        <animate attributeName="stop-color" values="#22d3ee;#f472b6;#a78bfa;#22d3ee" dur="9s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%"  stop-color="#7c3aed" stop-opacity="0.55"/>
+      <stop offset="60%" stop-color="#7c3aed" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="core">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#f472b6" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+    </radialGradient>
+
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.4"/>
+    </filter>
+    <filter id="bigSoft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+
+    <!-- Grid pattern -->
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="340" fill="url(#bg)"/>
+  <rect width="1200" height="340" fill="url(#grid)" opacity="0.7"/>
+
+  <!-- Drifting aurora blobs -->
+  <g opacity="0.45" filter="url(#bigSoft)">
+    <circle cx="120" cy="80" r="90" fill="#7c3aed">
+      <animate attributeName="cy" values="80;140;80" dur="9s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1080" cy="260" r="110" fill="#22d3ee">
+      <animate attributeName="cy" values="260;200;260" dur="11s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="780" cy="50" r="70" fill="#f472b6">
+      <animate attributeName="cx" values="780;860;780" dur="13s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Logo composition centered around (200, 170) -->
+  <g transform="translate(200,170)">
+    <!-- Halo -->
+    <circle cx="0" cy="0" r="120" fill="url(#halo)"/>
+
+    <!-- Outer dashed ring -->
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="22s" repeatCount="indefinite"/>
+      <circle cx="0" cy="0" r="78" fill="none" stroke="url(#brand)" stroke-width="1.6" stroke-dasharray="6 8" opacity="0.75"/>
+    </g>
+
+    <!-- Inner partial ring -->
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="28s" repeatCount="indefinite"/>
+      <circle cx="0" cy="0" r="56" fill="none" stroke="url(#brand)" stroke-width="3" stroke-linecap="round" stroke-dasharray="110 250" filter="url(#soft)"/>
+    </g>
+
+    <!-- Four platform orbs (rotate as a group) -->
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="22s" repeatCount="indefinite"/>
+      <circle cx="0"   cy="-78" r="7" fill="#ff3b3b" filter="url(#soft)"/>
+      <circle cx="78"  cy="0"   r="7" fill="#e1306c" filter="url(#soft)"/>
+      <circle cx="0"   cy="78"  r="7" fill="#1877f2" filter="url(#soft)"/>
+      <circle cx="-78" cy="0"   r="7" fill="#ffffff" filter="url(#soft)"/>
+    </g>
+
+    <!-- Central diamond (pulses) -->
+    <g>
+      <circle cx="0" cy="0" r="34" fill="url(#core)"/>
+      <g>
+        <animateTransform attributeName="transform" type="scale" values="1;1.08;1" dur="3s" repeatCount="indefinite"/>
+        <rect x="-18" y="-18" width="36" height="36" rx="6" transform="rotate(45)" fill="url(#brand)"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- Wordmark -->
+  <g font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-weight="700">
+    <text x="360" y="158" font-size="84" fill="url(#brand)" letter-spacing="-2">Omni</text>
+    <text x="582" y="158" font-size="84" fill="#ffffff" letter-spacing="-2">Post</text>
+  </g>
+
+  <!-- Animated underline -->
+  <line x1="360" y1="180" x2="800" y2="180" stroke="url(#brand)" stroke-width="2" stroke-linecap="round" stroke-dasharray="440" stroke-dashoffset="440">
+    <animate attributeName="stroke-dashoffset" from="440" to="0" dur="1.4s" begin="0.2s" fill="freeze"/>
+  </line>
+
+  <!-- Tagline (steady) -->
+  <text x="360" y="222" font-family="ui-sans-serif, system-ui, sans-serif" font-size="22" fill="#cfcfdb">
+    One post. Every platform. Zero compromise.
+  </text>
+
+  <!-- Cycling sub-tagline (3 lines fade through) -->
+  <g font-family="ui-monospace, SFMono-Regular, monospace" font-size="15" fill="#9b9bb0">
+    <text x="360" y="260" opacity="0">
+      <animate attributeName="opacity" values="0;1;1;0;0;0;0" keyTimes="0;0.05;0.28;0.34;0.66;0.95;1" dur="9s" repeatCount="indefinite"/>
+      ▸ smart aspect-ratio padding with FFmpeg
+    </text>
+    <text x="360" y="260" opacity="0">
+      <animate attributeName="opacity" values="0;0;0;1;1;0;0" keyTimes="0;0.32;0.36;0.4;0.62;0.66;1" dur="9s" repeatCount="indefinite"/>
+      ▸ chunked resumable S3 multipart uploads
+    </text>
+    <text x="360" y="260" opacity="0">
+      <animate attributeName="opacity" values="0;0;0;0;0;0;1;1;0" keyTimes="0;0.32;0.36;0.62;0.66;0.7;0.72;0.95;1" dur="9s" repeatCount="indefinite"/>
+      ▸ strict dead-letter queue with full-jitter backoff
+    </text>
+  </g>
+
+  <!-- Tiny "live" indicator + version chip -->
+  <g transform="translate(360, 285)">
+    <rect x="0" y="0" width="92" height="22" rx="11" fill="rgba(34,197,94,0.12)" stroke="rgba(34,197,94,0.4)"/>
+    <circle cx="14" cy="11" r="4" fill="#22c55e">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="1.6s" repeatCount="indefinite"/>
+    </circle>
+    <text x="26" y="15" font-family="ui-sans-serif, system-ui" font-size="11" fill="#86efac">live · v0.1</text>
+  </g>
+  <g transform="translate(462, 285)">
+    <rect x="0" y="0" width="120" height="22" rx="11" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)"/>
+    <text x="12" y="15" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" fill="#cbd5e1">MIT · open-source</text>
+  </g>
+  <g transform="translate(592, 285)">
+    <rect x="0" y="0" width="156" height="22" rx="11" fill="rgba(124,58,237,0.12)" stroke="rgba(167,139,250,0.45)"/>
+    <text x="12" y="15" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" fill="#c4b5fd">65 tests · 0 deps drift</text>
+  </g>
+
+  <!-- Decorative right-side: floating platform glass tiles -->
+  <g font-family="ui-sans-serif, system-ui" font-size="22" font-weight="700">
+    <!-- YouTube tile -->
+    <g transform="translate(900,80)">
+      <rect width="56" height="56" rx="14" fill="rgba(255,59,59,0.12)" stroke="rgba(255,59,59,0.4)"/>
+      <text x="28" y="38" text-anchor="middle" fill="#ff8a8a">▶</text>
+      <animateTransform attributeName="transform" type="translate" values="900,80; 900,68; 900,80" dur="6s" repeatCount="indefinite"/>
+    </g>
+    <!-- Instagram tile -->
+    <g transform="translate(990,160)">
+      <rect width="56" height="56" rx="14" fill="rgba(225,48,108,0.12)" stroke="rgba(225,48,108,0.4)"/>
+      <text x="28" y="38" text-anchor="middle" fill="#f472b6">◎</text>
+      <animateTransform attributeName="transform" type="translate" values="990,160; 990,148; 990,160" dur="7s" begin="-1s" repeatCount="indefinite"/>
+    </g>
+    <!-- Facebook tile -->
+    <g transform="translate(900,240)">
+      <rect width="56" height="56" rx="14" fill="rgba(24,119,242,0.12)" stroke="rgba(24,119,242,0.4)"/>
+      <text x="28" y="38" text-anchor="middle" fill="#60a5fa">f</text>
+      <animateTransform attributeName="transform" type="translate" values="900,240; 900,228; 900,240" dur="8s" begin="-2s" repeatCount="indefinite"/>
+    </g>
+    <!-- X tile -->
+    <g transform="translate(820,160)">
+      <rect width="56" height="56" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.25)"/>
+      <text x="28" y="38" text-anchor="middle" fill="#ffffff">𝕏</text>
+      <animateTransform attributeName="transform" type="translate" values="820,160; 820,148; 820,160" dur="6.5s" begin="-1.5s" repeatCount="indefinite"/>
+    </g>
+
+    <!-- Connecting lines from logo halo to right tiles, faint -->
+    <g stroke="url(#brand)" stroke-width="1" stroke-dasharray="3 6" opacity="0.35" fill="none">
+      <path d="M 290 130 Q 600 60 928 108"/>
+      <path d="M 300 170 Q 600 170 850 188"/>
+      <path d="M 300 200 Q 600 250 1018 188"/>
+      <path d="M 290 220 Q 600 290 928 268"/>
+    </g>
+  </g>
+</svg>

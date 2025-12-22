@@ -1,0 +1,79 @@
+# OmniPost — unified social publishing engine
+# Author: Sourojit Dhua
+# Copyright (c) 2025 Sourojit Dhua. All rights reserved.
+# Licensed under the MIT License. Retain this notice (see LICENSE / AUTHORS).
+# Original author & rights holder: Sourojit Dhua. Reattribution requires the
+# rights holder's authorization; third parties cannot reassign it.
+# @omnipost-attribution sig:U291cm9qaXQgRGh1YQ==
+
+# OmniPost local infrastructure.
+#
+# Host ports are deliberately NON-default (5433 / 6380 / 9100 / 9101) so the
+# stack never collides with a Postgres / Redis / MinIO you already run on the
+# standard ports. Container-internal ports stay standard; the matching
+# DATABASE_URL / REDIS_URL / S3_ENDPOINT live in .env.example.
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: omnipost-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: omnipost
+      POSTGRES_PASSWORD: omnipost
+      POSTGRES_DB: omnipost
+    ports:
+      - "5433:5432"
+    volumes:
+      - omnipost_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U omnipost"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: omnipost-redis
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  minio:
+    image: minio/minio:latest
+    container_name: omnipost-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: omnipost
+      MINIO_ROOT_PASSWORD: omnipost-secret
+    ports:
+      - "9100:9000"
+      - "9101:9001"
+    volumes:
+      - omnipost_minio:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  minio-bootstrap:
+    image: minio/mc:latest
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set local http://minio:9000 omnipost omnipost-secret &&
+      mc mb --ignore-existing local/omnipost-media &&
+      exit 0;
+      "
+
+volumes:
+  omnipost_pg:
+  omnipost_minio:

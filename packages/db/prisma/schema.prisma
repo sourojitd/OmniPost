@@ -1,0 +1,174 @@
+// OmniPost — unified social publishing engine
+// Author: Sourojit Dhua
+// Copyright (c) 2025 Sourojit Dhua. All rights reserved.
+// Licensed under the MIT License. Retain this notice (see LICENSE / AUTHORS).
+// Original author & rights holder: Sourojit Dhua. Reattribution requires the
+// rights holder's authorization; third parties cannot reassign it.
+// @omnipost-attribution sig:U291cm9qaXQgRGh1YQ==
+
+// OmniPost database schema
+// AES-256-GCM encrypted columns are marked with `// encrypted` in trailing comments.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// -------- Enums --------
+
+enum Platform {
+  YOUTUBE
+  INSTAGRAM
+  FACEBOOK
+  X
+}
+
+enum SocialAccountStatus {
+  ACTIVE
+  EXPIRED
+  REVOKED
+  ERROR
+}
+
+enum PostStatus {
+  DRAFT
+  QUEUED
+  PROCESSING
+  PARTIAL
+  COMPLETED
+  FAILED
+}
+
+enum DeliveryStatus {
+  PENDING
+  UPLOADING
+  PUBLISHED
+  FAILED
+  DEAD_LETTER
+}
+
+// -------- Models --------
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  apiKeys          ApiKey[]
+  socialAccounts   SocialAccount[]
+  posts            Post[]
+  webhookEndpoints WebhookEndpoint[]
+}
+
+model ApiKey {
+  id         String    @id @default(cuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // Visible prefix shown in the UI, e.g. "op_live_a1b2c3" so users can identify the key.
+  keyPrefix  String
+  // bcrypt hash of the full key. Plaintext shown only once at creation.
+  keyHash    String
+  name       String?
+  scopes     String[]  @default([])
+  lastUsedAt DateTime?
+  revokedAt  DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([userId])
+  @@unique([keyPrefix])
+}
+
+model SocialAccount {
+  id                String              @id @default(cuid())
+  userId            String
+  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  platform          Platform
+  // The platform's stable identifier (e.g. YouTube channel id, IG business id, X user id).
+  platformAccountId String
+  handle            String?
+  accessTokenEnc    String // encrypted: AES-256-GCM
+  refreshTokenEnc   String? // encrypted: AES-256-GCM
+  tokenExpiresAt    DateTime?
+  scopes            String[]            @default([])
+  status            SocialAccountStatus @default(ACTIVE)
+  // Free-form platform metadata: page ids, ig business ids, channel thumbnails, etc.
+  meta              Json?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  deliveryLogs PostPlatformDeliveryLog[]
+
+  @@unique([userId, platform, platformAccountId])
+  @@index([userId, platform])
+}
+
+model Post {
+  id               String     @id @default(cuid())
+  userId           String
+  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  caption          String
+  // Where the original media lives in S3 (key only, no public URL).
+  mediaS3Key       String?
+  mediaMimeType    String?
+  mediaSizeBytes   BigInt?
+  mediaDurationSec Float?
+  mediaWidth       Int?
+  mediaHeight      Int?
+  // Convenience snapshot of the targets requested at submission time.
+  targetPlatforms  Platform[] @default([])
+  status           PostStatus @default(DRAFT)
+  // Idempotency-key supplied by the caller. Optional but uniquely scoped to user when set.
+  idempotencyKey   String?
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+
+  deliveryLogs PostPlatformDeliveryLog[]
+
+  @@unique([userId, idempotencyKey])
+  @@index([userId, createdAt])
+}
+
+model PostPlatformDeliveryLog {
+  id              String         @id @default(cuid())
+  postId          String
+  post            Post           @relation(fields: [postId], references: [id], onDelete: Cascade)
+  socialAccountId String
+  socialAccount   SocialAccount  @relation(fields: [socialAccountId], references: [id], onDelete: Cascade)
+  platform        Platform
+  status          DeliveryStatus @default(PENDING)
+  attemptCount    Int            @default(0)
+  nextRetryAt     DateTime?
+  // Platform-side identifiers populated after a successful publish.
+  remoteId        String?
+  remoteUrl       String?
+  // Last error code + full body so debugging upstream API failures is trivial.
+  lastErrorCode   String?
+  lastErrorBody   Json?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@index([postId])
+  @@index([status, nextRetryAt])
+  @@index([platform, status])
+}
+
+model WebhookEndpoint {
+  id               String   @id @default(cuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  url              String
+  // HMAC signing secret; never returned in plaintext after creation.
+  secret           String
+  eventsSubscribed String[] @default([])
+  active           Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([userId])
+}
